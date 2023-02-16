@@ -13,8 +13,8 @@ func New(n int) *Limiter {
 
 func (l *Limiter) Run(task func()) {
 	l.wg.Add(1)
-	l.pool <- struct{}{}
 	go func() {
+		l.pool <- struct{}{}
 		task()
 		<-l.pool
 		l.wg.Done()
